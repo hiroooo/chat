@@ -1,6 +1,8 @@
 From centos:centos6
 MAINTAINER Hiroaki Suzuki <suzuki@tribe-univ.com>
 
+EXPOSE 80 22
+
 ENV IP 127.0.0.1
 ENV PW password
 
@@ -30,3 +32,6 @@ RUN chmod 600 /root/.ssh/authorized_keys && chown root:root /root/.ssh/authorize
 
 RUN useradd chat && echo "chat:$PW" | chpasswd
 RUN echo 'chat ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/chat
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+CMD ["service","nginx","start"]
