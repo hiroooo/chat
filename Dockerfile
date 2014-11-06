@@ -1,11 +1,6 @@
 From centos:centos6
 MAINTAINER Hiroaki Suzuki <suzuki@tribe-univ.com>
 
-EXPOSE 80 22
-
-ENV IP 127.0.0.1
-ENV PW password
-
 RUN yum update -y
 RUN yum install wget -y
 RUN wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm ;\
@@ -30,8 +25,10 @@ RUN mkdir -m 700 /root/.ssh
 ADD authorized_keys /root/.ssh/authorized_keys
 RUN chmod 600 /root/.ssh/authorized_keys && chown root:root /root/.ssh/authorized_keys
 
-RUN useradd chat && echo "chat:$PW" | chpasswd
-RUN echo 'chat ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/chat
+#RUN useradd chat && echo "chat:$PW" | chpasswd
+#RUN echo 'chat ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/chat
 
-CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+EXPOSE 22 80
+
+#CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
 CMD ["service","nginx","start"]
