@@ -25,10 +25,18 @@ RUN mkdir -m 700 /root/.ssh
 ADD authorized_keys /root/.ssh/authorized_keys
 RUN chmod 600 /root/.ssh/authorized_keys && chown root:root /root/.ssh/authorized_keys
 
+WORKDIR /etc/nginx
+
+# Define mountable directories.
+VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx"]
+
 #RUN useradd chat && echo "chat:$PW" | chpasswd
 #RUN echo 'chat ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/chat
 
-EXPOSE 22 80
-
 #CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
-CMD ["service","nginx","start"]
+#CMD ["service","nginx","start"]
+CMD ["nginx"]
+
+EXPOSE 80
+EXPOSE 443
+
