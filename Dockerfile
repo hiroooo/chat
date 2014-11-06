@@ -10,6 +10,7 @@ RUN wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm ;\
     wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm ;\
     wget http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm ;\
     rpm -ivh epel-release-6-8.noarch.rpm remi-release-6.rpm rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+RUN rpm -ivh http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 RUN yum --enablerepo=remi,epel,treasuredata install sudo openssh-server syslog nginx monit td-agent nodejs npm -y
 
 ADD monit.sshd /etc/monit.d/sshd
